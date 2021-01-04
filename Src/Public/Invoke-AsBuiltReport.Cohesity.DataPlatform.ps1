@@ -66,13 +66,13 @@ function Invoke-AsBuiltReport.Cohesity.DataPlatform {
         $accessToken = $auth.accessToken
         
         Section -Style Heading1 $CohesityCluster {
-            if ($CohesityClusterInfo = Get-AbrCohesityCluster -BaseURL $BaseURL -apiAccessToken $accessToken) {
+            if ($CohesityClusterInfo = Get-AbrCohesityCluster -BaseURL $BaseURL -ShowTableCaptions $Report.ShowTableCaptions -apiAccessToken $accessToken) {
                 Section -Style Heading2 'Cluster Summary' {
                     $CohesityClusterInfo
                 }
             }
 
-            if ($CohesityADInfo = Get-AbrCohesityActiveDirectory -BaseURL $BaseURL -apiAccessToken $accessToken) {
+            if ($CohesityADInfo = Get-AbrCohesityActiveDirectory -BaseURL $BaseURL -ShowTableCaptions $Report.ShowTableCaptions -apiAccessToken $accessToken) {
                 Section -Style Heading2 'Active Directory Summary' {
                     $CohesityADInfo
                 }

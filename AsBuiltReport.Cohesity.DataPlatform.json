@@ -2,7 +2,11 @@
     "Report": {
         "Name": "Cohesity As Built Report",
         "Version": "1.0",
-        "Status": "Released"
+        "Status": "Released",
+        "ShowCoverPageImage": true,
+        "ShowTableOfContents": true,
+        "ShowHeaderFooter": true,
+        "ShowTableCaptions": true
     },
     "Options": {
     },

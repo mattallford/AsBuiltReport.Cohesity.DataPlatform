@@ -25,7 +25,10 @@ function Get-AbrCohesityActiveDirectory {
         [String] $BaseURL,
 
         [Parameter(Mandatory=$true)]
-        [String] $apiAccessToken
+        [String] $apiAccessToken,
+
+        [Parameter(Mandatory=$true)]
+        [String] $ShowTableCaptions
     )
     
     begin {
@@ -53,7 +56,16 @@ function Get-AbrCohesityActiveDirectory {
                     'Trusted Domains Enabled' = $AD.trustedDomainsEnabled
                 }
             }
-            $CohesityClusterADConfig | Table -Name 'Cohesity Cluster Active Directory Information'
+
+            $TableParams = @{
+                Name = "Active Directory Configuration"
+                List = $true
+                ColumnWidths = 50, 50
+            }
+            if ($ShowTableCaptions) {
+                $TableParams['Caption'] = "- $($TableParams.Name)"
+            }
+            $CohesityClusterADConfig | Table @TableParams
         }
     }
 }

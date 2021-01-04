@@ -59,7 +59,17 @@ function Get-AbrCohesityCluster {
                 'Support Channel Enabled' = $CohesityCluster.reverseTunnelEnabled
                 'Timezone' = $CohesityCluster.Timezone
             }
-            $CohesityClusterConfig | Table -Name 'Cohesity Cluster Information' -List
+
+            $TableParams = @{
+                Name = "Cluster Configuration"
+                List = $true
+                ColumnWidths = 50, 50
+            }
+            if ($ShowTableCaptions) {
+                $TableParams['Caption'] = "- $($TableParams.Name)"
+            }
+
+            $CohesityClusterConfig | Table @TableParams
         }
     }
 }
