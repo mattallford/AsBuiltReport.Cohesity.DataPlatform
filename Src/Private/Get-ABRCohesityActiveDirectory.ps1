@@ -1,4 +1,4 @@
-function Get-ABRCohesityActiveDirectory {
+function Get-AbrCohesityActiveDirectory {
     <#
     .SYNOPSIS
     Used by As Built Report to retrieve Active Directory configuration of a Cohesity Cluster from the REST API
@@ -8,7 +8,7 @@ function Get-ABRCohesityActiveDirectory {
     This function relies on authentication to the Cohesity Platform to have already occurred and the apiAccessToken to be passed in as a parameter
 
     .EXAMPLE
-    Get-ABRCohesityActiveDirectory -BaseURL https://cohesity.domain.com/irisservices/api/v1/public -apiAccessToken $auth.accessToken
+    Get-ABRCohesityActiveDirectory -BaseURL https://cohesity.domain.com/irisservices/api/v1/public -apiAccessToken $accessToken
 
     .NOTES
         Version:        0.0.1
@@ -51,7 +51,6 @@ function Get-ABRCohesityActiveDirectory {
                     'Machine Accounts' = $AD.machineAccounts -join ", "
                     'Workgroup' = $AD.Workgroup
                     'Trusted Domains Enabled' = $AD.trustedDomainsEnabled
-
                 }
             }
             $CohesityClusterADConfig | Table -Name 'Cohesity Cluster Active Directory Information'

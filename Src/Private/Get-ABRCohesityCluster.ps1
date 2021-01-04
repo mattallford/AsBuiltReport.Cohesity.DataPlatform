@@ -1,4 +1,4 @@
-function Get-ABRCohesityCluster {
+function Get-AbrCohesityCluster {
     <#
     .SYNOPSIS
     Used by As Built Report to retrieve information about a Cohesity Cluster from the REST API
@@ -8,7 +8,7 @@ function Get-ABRCohesityCluster {
     This function relies on authentication to the Cohesity Platform to have already occurred and the apiAccessToken to be passed in as a parameter
 
     .EXAMPLE
-    Get-ABRCohesityCluster -BaseURL https://cohesity.domain.com/irisservices/api/v1/public -apiAccessToken $auth.accessToken
+    Get-ABRCohesityCluster -BaseURL https://cohesity.domain.com/irisservices/api/v1/public -apiAccessToken $accessToken
 
     .NOTES
         Version:        0.0.1

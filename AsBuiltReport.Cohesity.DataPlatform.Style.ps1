@@ -1,4 +1,4 @@
-# VMware Default Document Style
+# Cohesity Default Document Style
 
 # Configure document options
 DocumentOption -EnableSectionNumbering -PageSize A4 -DefaultFont Arial -MarginLeftAndRight 71 -MarginTopAndBottom 71 -Orientation $Orientation
@@ -27,7 +27,6 @@ Style -Name 'OK' -Size 10 -BackgroundColor 'AADB1E'
 TableStyle -Id 'TableDefault' -HeaderStyle 'TableDefaultHeading' -RowStyle 'TableDefaultRow' -AlternateRowStyle 'TableDefaultAltRow' -BorderColor '002538' -Align Left -BorderWidth 0.5 -Default
 TableStyle -Id 'Borderless' -BorderWidth 0
 
-# VMware Cover Page Layout
 # Set position of report titles and information based on page orientation
 if ($Orientation -eq 'Portrait') {
     BlankLine -Count 11
@@ -54,6 +53,8 @@ Table -Name 'Cover Page' -List -Style Borderless -Width 0 -Hashtable ([Ordered] 
     })
 PageBreak
 
-# Add Table of Contents
-TOC -Name 'Table of Contents'
-PageBreak
+if ($ReportConfig.Report.ShowTableOfContents) {
+    # Add Table of Contents
+    TOC -Name 'Table of Contents'
+    PageBreak
+}

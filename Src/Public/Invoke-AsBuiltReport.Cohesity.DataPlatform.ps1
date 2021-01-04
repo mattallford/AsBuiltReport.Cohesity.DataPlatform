@@ -16,14 +16,12 @@ function Invoke-AsBuiltReport.Cohesity.DataPlatform {
 
         [Parameter(Mandatory=$true)]
         [pscredential] $Credential,
-
-        [Parameter(Mandatory=$false)]
-        [string] $StylePath
     )
 
     foreach ($CohesityCluster in $Target) {
 
         # Import JSON Configuration for Options and InfoLevel
+        $Report = $ReportConfig.Report
         $InfoLevel = $ReportConfig.InfoLevel
         $Options = $ReportConfig.Options
 
@@ -56,22 +54,25 @@ function Invoke-AsBuiltReport.Cohesity.DataPlatform {
         $AuthBody = ConvertTo-Json @{'domain' = 'local'; 
                                 'username' = $($Credential.UserName); 
                                 'password' = "$($Credential.GetNetworkCredential().Password)"}
+
         # Create the BaseURL to the endpoint. This will be used regularly in the rest of the script
         $BaseURL = "https://$CohesityCluster/irisservices/api/v1/public"
+
         # Create the authentication URL
         $AuthURL = $BaseURL + '/accessTokens'
+
         # Connect to the endpoint and retrieve authentication information
         $auth = Invoke-RestMethod -Method Post -Uri $AuthURL -Header $AuthHeader -Body $AuthBody
-        
+        $accessToken = $auth.accessToken
         
         Section -Style Heading1 $CohesityCluster {
-            if ($CohesityClusterInfo = Get-ABRCohesityCluster -BaseURL $BaseURL -apiAccessToken $auth.accessToken) {
+            if ($CohesityClusterInfo = Get-AbrCohesityCluster -BaseURL $BaseURL -apiAccessToken $accessToken) {
                 Section -Style Heading2 'Cluster Summary' {
                     $CohesityClusterInfo
                 }
             }
 
-            if ($CohesityADInfo = Get-ABRCohesityActiveDirectory -BaseURL $BaseURL -apiAccessToken $auth.accessToken) {
+            if ($CohesityADInfo = Get-AbrCohesityActiveDirectory -BaseURL $BaseURL -apiAccessToken $accessToken) {
                 Section -Style Heading2 'Active Directory Summary' {
                     $CohesityADInfo
                 }
